@@ -1,0 +1,47 @@
+#cloud-config
+  #User-Config
+users:
+  - name: silas
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys: #SSH_Keys
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYh4fQyN7RIce+5AuytM/TApRzaQ+e0f+R5UYyj5lAnLnYcIwHEVueVjgI2ATyStd+Qk8/2WBdm7+3UcNfuvyFaZR73hD8WCuRb9oBTHNqwPtwc8q4SvmCS0yya8ovHM9uvwU8VJeqi3+fu19y9gzlWnvHoSw4Lb+YU4atU2zHPz70iW4A4e6Ji97ItsuPEUkPP8nR1HGQRPpt+4cKwJWy/4pfCKaXAvDmEzMNjQeByTfIx5Rl/3pj1jDaYgHoX/mGKvLhcY3FA+Xm8xULqQnVftM866SbsInaW2Awo+G7X+w0HBOwx5vFJbMd/HA+s/a4ZnXpbGBqpvOK60ghIKMC6mRZJzmtJ04kDj1dfbkWahycwYTgH7NHr9jVx+8Q40wu1bP9xKJAIovJeftR5hG8X20Y5c1Cpu1m2Mg7fj6PjLxVN6fZsXknBMH0qbI6e4F3YsFNN787FSprRk7JwrlOGdI2rbg7hM7ob/17UU24ZUTeDCcBb8+bZBZO4LGtWd8= silas@Silas-PC1
+  #Package install and update
+packages:
+  - fail2ban
+  - ufw
+  - ifupdown
+package_update: true
+package_upgrade: true
+  #Executed commands
+runcmd:
+  #fail2ban config
+  - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+  - systemctl enable fail2ban
+  #ufw config
+  - ufw allow OpenSSH
+  - ufw enable
+  #ssh config
+  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)KbdInteractiveAuthentication/s/^.*$/KbdInteractiveAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)ChallengeResponseAuthentication/s/^.*$/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)MaxAuthTries/s/^.*$/MaxAuthTries 2/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
+  - sed -i '$a AllowUsers silas' /etc/ssh/sshd_config #Allow user for ssh
+  - |
+    cat <<'EOF' >> /etc/systemd/network/10-enp7s0.network
+    [Match]
+    Name=enp7s0
+    
+    [Network]
+    DHCP=yes
+    Gateway=172.31.0.1
+    EOF
+  - printf "[Resolve]\nDNS=1.1.1.1" > /etc/systemd/resolved.conf
+  - [systemctl, restart, systemd-resolved]
+  - reboot
