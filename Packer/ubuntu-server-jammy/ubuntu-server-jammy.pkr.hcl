@@ -50,9 +50,9 @@ source "proxmox-iso" "ubuntu-server-jammy" {
 
     disks {
         disk_size = "20G"
-        format = "qcow2"
-        storage_pool = "local"
-    #    storage_pool_type = "dir"
+        format = "raw"
+        storage_pool = "local-lvm"
+        storage_pool_type = "lvm"
         type = "virtio"
     }
 
@@ -71,7 +71,7 @@ source "proxmox-iso" "ubuntu-server-jammy" {
 
     # VM Cloud-Init Settings
     cloud_init = true
-    cloud_init_storage_pool = "local"
+    cloud_init_storage_pool = "local-lvm"
 
     # PACKER Boot Commands
     boot_command = [
@@ -88,7 +88,7 @@ source "proxmox-iso" "ubuntu-server-jammy" {
     # PACKER Autoinstall Settings
     http_directory = "http" 
     # (Optional) Bind IP Address and Port
-    http_bind_address = "172.20.0.250"
+    http_bind_address = "172.20.0.254"
     http_port_min = 8802
     http_port_max = 8802
 
