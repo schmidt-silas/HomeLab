@@ -1,0 +1,11 @@
+[location]-[name]-[number]
+
+location:
+    hbg | nbg | ueb
+name exp.:
+    pve | esxi | pfsense | docker
+number:
+    01 | 02 | 03
+
+Example:
+    hbg-pve-01
