@@ -23,7 +23,7 @@ update-initramfs -u -k all
 lsmod | grep vfio
 
 #install openvswitch
-apt install openvswitch-switch
+apt install openvswitch-switch ceph-mgr-dashboard
 
 172.20.0.101 hbg-pve-01.schmidt-silas.dev hbg-pve-01
 172.20.0.102 hbg-pve-02.schmidt-silas.dev hbg-pve-02
