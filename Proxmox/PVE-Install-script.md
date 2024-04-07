@@ -18,7 +18,7 @@ nano /etc/modules
 vfio
 vfio_iommu_type1
 vfio_pci
------
+
 update-initramfs -u -k all
 lsmod | grep vfio
 
