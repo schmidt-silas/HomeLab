@@ -10,5 +10,5 @@ services:
     ports:
       - "25565:25565"
     volumes:
-      - /mnt/volumes/minecraft-server:/data
+      - ~/volumes/volumes/mc-paper:/data
     restart: unless-stopped
