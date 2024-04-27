@@ -9,17 +9,16 @@ services:
       TYPE: PAPER
       VIEW_DISTANCE: 25
       MEMORY: 8G
-      UID: 0
-      GID: 0
     ports:
       - "25565:25565"
     volumes:
       - mc-paper:/data
     restart: unless-stopped
 
-volumes: 
+volumes:
   mc-paper:
+    driver: local
     driver_opts:
-      type: cifs 
-      o: username=${NAS_USER},password=${NAS_PASSWORD}
-      device: ${NETWORK_PATH}
+      type: cifs
+      device: "${NETWORK_PATH}"
+      o: "username=${NAS_USER},password=${NAS_PASSWORD},uid=1000,gid=1000"
