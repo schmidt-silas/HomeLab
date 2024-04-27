@@ -31,6 +31,8 @@ services:
     image: semaphoreui/semaphore:latest
     container_name: semaphore-app
     environment:
+      UIS: 0
+      GID: 0
       SEMAPHORE_DB_USER: sem
       SEMAPHORE_DB_PASS: ${MYSQL_PASSWORD}
       SEMAPHORE_DB_HOST: mysql # for postgres, change to: postgres
