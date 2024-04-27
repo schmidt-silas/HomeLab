@@ -17,7 +17,7 @@ services:
     hostname: mysql
     container_name: semaphore-mysql
     volumes:
-      - /home/silas/volumes/semaphore:/var/lib/mysql
+      - semaphore:/var/lib/mysql
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       MYSQL_DATABASE: semaphore
@@ -53,3 +53,7 @@ services:
       # SEMAPHORE_LDAP_SEARCH_FILTER: "(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))"
     depends_on:
       - mysql # for postgres, change to: postgres
+
+volumes:
+    semaphore:
+      external: true
