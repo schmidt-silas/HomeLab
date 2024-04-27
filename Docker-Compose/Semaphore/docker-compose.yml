@@ -55,7 +55,7 @@ services:
       - mysql # for postgres, change to: postgres
 
 volumes:
-    cifs_mount: # to use postgres, switch to: semaphore-postgres
+    semaphore-mysql: # to use postgres, switch to: semaphore-postgres
       driver: local
       driver_opts:
         type: cifs
