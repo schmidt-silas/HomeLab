@@ -10,5 +10,5 @@ services:
     ports:
       - "25565:25565"
     volumes:
-      - /home/silas/volumes/minecraft-server:/data
+      - /home/silas/volumes/mc-paper:/data
     restart: unless-stopped
