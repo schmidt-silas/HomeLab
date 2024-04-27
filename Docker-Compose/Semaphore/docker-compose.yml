@@ -13,7 +13,7 @@ services:
   # if you wish to use postgres, comment the mysql service section below
   mysql:
     env_file:
-      - stack.env
+      - .env
     restart: unless-stopped
     image: mysql:8.0
     hostname: mysql
@@ -24,11 +24,11 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       MYSQL_DATABASE: semaphore
       MYSQL_USER: sem
-      MYSQL_PASSWORD: bcJ&y@X&U2X%U#
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   semaphore:
     env_file:
-      - stack.env
+      - .env
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -36,17 +36,17 @@ services:
     container_name: semaphore-app
     environment:
       SEMAPHORE_DB_USER: sem
-      SEMAPHORE_DB_PASS: bcJ&y@X&U2X%U#
+      SEMAPHORE_DB_PASS: ${MYSQL_PASSWORD}
       SEMAPHORE_DB_HOST: mysql # for postgres, change to: postgres
       SEMAPHORE_DB_PORT: 3306 # change to 5432 for postgres
       SEMAPHORE_DB_DIALECT: mysql # for postgres, change to: postgres
       SEMAPHORE_DB: semaphore
       SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
-      SEMAPHORE_ADMIN_PASSWORD: Xxi5GnCmsj#G7g
-      SEMAPHORE_ADMIN_NAME: silas
-      SEMAPHORE_ADMIN_EMAIL: monitoring@schmidt-silas.dev
-      SEMAPHORE_ADMIN: silas
-      SEMAPHORE_ACCESS_KEY_ENCRYPTION: FSiuNtVjmFBwoSwBCaW2mtgMVPNTuVv5sVw3DaLkj1Y=
+      SEMAPHORE_ADMIN_PASSWORD: ${SEMAPHORE_ADMIN_PASSWORD}
+      SEMAPHORE_ADMIN_NAME: ${SEMAPHORE_ADMIN_NAME}
+      SEMAPHORE_ADMIN_EMAIL: ${SEMAPHORE_ADMIN_EMAIL}
+      SEMAPHORE_ADMIN: ${SEMAPHORE_ADMIN_NAME}
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: ${SEMAPHORE_ACCESS_KEY_ENCRYPTION}
       # SEMAPHORE_LDAP_ACTIVATED: 'no' # if you wish to use ldap, set to: 'yes'
       # SEMAPHORE_LDAP_HOST: dc01.local.example.com
       # SEMAPHORE_LDAP_PORT: '636'
