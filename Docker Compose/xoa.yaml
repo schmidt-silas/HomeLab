@@ -12,6 +12,6 @@ services:
     image: bitnami/redis:latest
     environment:
       - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=aGoodRedisPassword
+      - REDIS_PASSWORD="$xo-redis-pw"
     volumes: 
       - 'xoredisdata:/bitnami/redis'
