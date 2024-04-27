@@ -1,5 +1,3 @@
-#SMB Storrage
-version: '3.8'
 services:
   mc:
     image: itzg/minecraft-server
