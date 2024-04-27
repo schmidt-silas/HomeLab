@@ -55,4 +55,9 @@ services:
       - mysql # for postgres, change to: postgres
 
 volumes:
-  semaphore-mysql: # to use postgres, switch to: semaphore-postgres
+    cifs_mount: # to use postgres, switch to: semaphore-postgres
+      driver: local
+      driver_opts:
+        type: cifs
+        device: ${NETWORK_PATH}
+        o: username=${NAS_USER},password=${NAS_PASSWORD}
