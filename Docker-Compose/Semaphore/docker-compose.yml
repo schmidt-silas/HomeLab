@@ -41,7 +41,7 @@ services:
       # SEMAPHORE_LDAP_DN_SEARCH: 'dc=local,dc=example,dc=com'
       # SEMAPHORE_LDAP_SEARCH_FILTER: "(\u0026(uid=%s)(memberOf=cn=ipausers,cn=groups,cn=accounts,dc=local,dc=example,dc=com))"
     depends_on:
-      - mysql # for postgres, change to: postgres
+      - postgres # for postgres, change to: postgres
 
 volumes:
     semaphore:
