@@ -15,6 +15,7 @@ services:
     restart: unless-stopped
     image: mysql:8.0
     hostname: mysql
+    container_name: semaphore-mysql
     volumes:
       - semaphore-mysql:/var/lib/mysql
     environment:
@@ -22,11 +23,13 @@ services:
       MYSQL_DATABASE: semaphore
       MYSQL_USER: sem
       MYSQL_PASSWORD: bcJ&y@X&U2X%U#
+
   semaphore:
     restart: unless-stopped
     ports:
       - 3000:3000
     image: semaphoreui/semaphore:latest
+    container_name: semaphore-app
     environment:
       SEMAPHORE_DB_USER: sem
       SEMAPHORE_DB_PASS: bcJ&y@X&U2X%U#
