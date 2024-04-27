@@ -12,7 +12,6 @@ services:
     #  POSTGRES_DB: semaphore
   # if you wish to use postgres, comment the mysql service section below
   mysql:
-    env_file: stack.env
     restart: unless-stopped
     image: mysql:8.0
     hostname: mysql
@@ -26,7 +25,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   semaphore:
-    env_file: stack.env
     restart: unless-stopped
     ports:
       - 3000:3000
