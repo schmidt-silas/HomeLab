@@ -16,7 +16,7 @@ services:
     image: mysql:8.0
     hostname: mysql
     volumes:
-      - semaphore:/var/lib/mysql
+      - semaphore-mysql:/var/lib/mysql
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       MYSQL_DATABASE: semaphore
@@ -53,5 +53,5 @@ services:
       - mysql # for postgres, change to: postgres
 
 volumes:
-    semaphore:
+    semaphore-mysql:
       external: true
