@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   mc:
     image: itzg/minecraft-server
@@ -10,5 +11,9 @@ services:
     ports:
       - "25565:25565"
     volumes:
-      - /home/silas/volumes/mc-paper:/data
+      - mc-paper:/data
     restart: unless-stopped
+    
+volumes:
+    mc-paper:
+      external: true
